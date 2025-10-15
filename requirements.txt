@@ -1,9 +1,9 @@
 fastapi
 uvicorn
 sqlalchemy
-pydantic
-passlib[bcrypt]
+pydantic[email]
 python-jose
+passlib[bcrypt]
 python-multipart
 databases
 aiosqlite
