@@ -12,6 +12,8 @@ app = FastAPI(title="Note Sharing App")
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://notes-sharing-app-32fp.onrender.com",
+    "https://notes-sharing-apps.onrender.com",
 ]
 
 app.add_middleware(

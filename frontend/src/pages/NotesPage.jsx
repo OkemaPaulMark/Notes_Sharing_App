@@ -12,7 +12,7 @@ function NotesPage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/users/me", {
+        const res = await fetch("https://notes-sharing-apps.onrender.com/users/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
@@ -32,7 +32,7 @@ function NotesPage() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/notes", {
+        const response = await fetch("https://notes-sharing-apps.onrender.com/notes", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,7 +57,7 @@ function NotesPage() {
   // Add note
   const addNote = async ({ title, content }) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/notes", {
+      const response = await fetch("https://notes-sharing-apps.onrender.com/notes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +81,7 @@ function NotesPage() {
   const deleteNote = async (id) => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
     try {
-      const response = await fetch(`http://127.0.0.1:8000/notes/${id}`, {
+      const response = await fetch(`https://notes-sharing-apps.onrender.com/notes/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
