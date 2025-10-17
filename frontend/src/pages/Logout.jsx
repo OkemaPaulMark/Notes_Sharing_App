@@ -10,7 +10,7 @@ function Logout() {
 
       if (token) {
         try {
-          await fetch("https://notes-sharing-apps.onrender.com/logout", {
+          await fetch("http://127.0.0.1:8000/logout", {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
