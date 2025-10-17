@@ -8,7 +8,7 @@ models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title="Note Sharing App")
 
-# ---------- CORS CONFIGURATION ----------
+# CORS CONFIGURATION 
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -21,9 +21,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# ---------------------------------------
 
-# ---------- USER REGISTRATION ----------
+
+#USER REGISTRATION 
 @app.post("/register", response_model=schemas.UserOut)
 def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
     existing_user = db.query(models.User).filter(
@@ -35,7 +35,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(auth.get_db)):
     return crud.create_user(db=db, user=user)
 
 
-# ---------- USER LOGIN ----------
+# USER LOGIN 
 @app.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(auth.get_db)):
     user = crud.authenticate_user(db, form_data.username, form_data.password)
@@ -45,14 +45,14 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     token = auth.create_access_token({"sub": user.username})
     return {"access_token": token, "token_type": "bearer"}
 
-# ---------- LOGOUT ----------
+# LOGOUT 
 @app.post("/logout")
 def logout(current_user=Depends(auth.get_current_user)):
     # In a real app, you might blacklist the token here or handle sessions.
     return {"message": f"User '{current_user.username}' logged out successfully"}
 
 
-# ---------- NOTES ----------
+#NOTES MANAGEMENT
 @app.post("/notes", response_model=schemas.NoteOut)
 def create_note(note: schemas.NoteCreate, current_user=Depends(auth.get_current_user), db: Session = Depends(auth.get_db)):
     return crud.create_note(db=db, note=note, user_id=current_user.id)

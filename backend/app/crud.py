@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from . import models, schemas, auth
 
-# ---------- USER ----------
+#USER CRUD OPERATIONS
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_pw = auth.get_password_hash(user.password)
     db_user = models.User(
@@ -22,7 +22,7 @@ def authenticate_user(db: Session, username: str, password: str):
         return False
     return user
 
-# ---------- NOTES ----------
+# NOTES 
 def create_note(db: Session, note: schemas.NoteCreate, user_id: int):
     db_note = models.Note(title=note.title, content=note.content, owner_id=user_id)
     db.add(db_note)
